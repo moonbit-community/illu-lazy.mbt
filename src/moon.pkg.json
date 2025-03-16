@@ -1,3 +1,10 @@
 {
-  "warn-list": "-1-2-3-5-6-7-8"
+  "warn-list": "-1-2-3-5-6-7-8",
+  "import": [
+    "illusory0x0/fun",
+    {
+      "path": "illusory0x0/parserc",
+      "alias": "pc"
+    }
+  ]
 }
