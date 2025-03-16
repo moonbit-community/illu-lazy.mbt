@@ -99,7 +99,6 @@ fn originalParser[Repr : AST]() -> LazyBuilder[OriginalParser[Repr]] {
   fn(self) {
     Lazy::from_fun(fn() {
       let litP = Lazy::from_val(intP.map(Repr::lit))
-      let wholeP = Lazy::from_val(intP.map(Repr::lit))
       let plusP = Lazy::from_fun(fn() {
         Parser::new(fn(seq) {
           let plusP = self.force().wholeP.map(fn(wholeP) {
