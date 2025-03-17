@@ -1,0 +1,2 @@
+render: <div>hello world<div/>
+render: <div>hello world!<div/>

@@ -25,14 +25,16 @@ test "fix/even odd" {
       even: Lazy::new(fn() {
         fn(n) {
           self.force().odd
-          .map(fn(odd) { fn(n) { if n == 0 { true } else { odd(n - 1) } } })
-          .force()(n)
+          .map(fn(odd) { if n == 0 { true } else { odd(n - 1) } })
+          .force()
         }
       }),
       odd: Lazy::new(fn() {
-        self.force().even
-        .map(fn(even) { fn(n) { if n == 0 { false } else { even(n - 1) } } })
-        .force()
+        fn(n) {
+          self.force().even
+          .map(fn(even) { if n == 0 { false } else { even(n - 1) } })
+          .force()
+        }
       }),
     }
   })

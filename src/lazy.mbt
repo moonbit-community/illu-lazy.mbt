@@ -29,7 +29,12 @@ pub fn Lazy::new[A](fun : () -> A) -> Lazy[A] {
 pub fn Lazy::map[A, B](self : Lazy[A], f : (A) -> B) -> Lazy[B] {
   match self.repr {
     Value(val) => Lazy::from_val(f(val))
-    Thunk(fun) => Lazy::from_fun(fn() { f(fun()) })
+    Thunk(fun) =>
+      Lazy::from_fun(fn() {
+        let val = fun()
+        self.repr = Value(val)
+        f(val)
+      })
   }
 }
 
@@ -58,7 +63,7 @@ pub fn Lazy::bind[A, B](self : Lazy[A], f : (A) -> Lazy[B]) -> Lazy[B] {
   }
 }
 
-
-pub impl[A : Show] Show for Lazy[A] with output(self,logger) {
+///|
+pub impl[A : Show] Show for Lazy[A] with output(self, logger) {
   self.force().output(logger)
 }
