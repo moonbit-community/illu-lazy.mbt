@@ -1,10 +1,4 @@
 ///|
-struct LazyRec[A] {
-  mut repr : LazyBuilder[A]
-  mut memo : Lazy[A]?
-}
-
-///|
 pub fn LazyRec::new[A](f : (Lazy[A]) -> A) -> LazyRec[A] {
   { repr: LazyBuilder::new(f), memo: None }
 }

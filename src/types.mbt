@@ -11,3 +11,9 @@ struct Lazy[A] {
 
 ///|
 type LazyBuilder[A] (Lazy[A]) -> Lazy[A]
+
+///|
+struct LazyRec[A] {
+  mut repr : LazyBuilder[A]
+  mut memo : Lazy[A]?
+}
