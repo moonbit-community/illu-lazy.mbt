@@ -21,7 +21,10 @@ pub fn LazyBuilder::inherit[A, B](
 }
 
 ///|
-pub fn LazyBuilder::map[A](self : LazyBuilder[A], f : (A) -> A) -> LazyBuilder[A] {
+pub fn LazyBuilder::map[A](
+  self : LazyBuilder[A],
+  f : (A) -> A
+) -> LazyBuilder[A] {
   let aa = fn(a : Lazy[A]) { a.map(f) }
   @fun.compose(aa, self._)
 }

@@ -17,13 +17,9 @@ test (t : @test.T) {
       }
     })
   }
+
   fn modify_text(self : Component, f : (String) -> String) -> Unit {
-    self._.modify(fn (self) { 
-      {
-        text : f(self.text),
-        html : self.html
-      }
-    })
+    self._.modify(fn(self) { { text: f(self.text), html: self.html } })
   }
 
   fn html(self : Component) -> String {
@@ -31,16 +27,15 @@ test (t : @test.T) {
   }
 
   let c = new()
-  modify_text(c,fn(_) { "hello world"})
+  modify_text(c, fn(_) { "hello world" })
   inspect!(html(c), content="<div>hello world<div/>")
   inspect!(html(c), content="<div>hello world<div/>")
   inspect!(html(c), content="<div>hello world<div/>")
   inspect!(html(c), content="<div>hello world<div/>")
-  modify_text(c,fn(x) { x + "!" })
+  modify_text(c, fn(x) { x + "!" })
   inspect!(html(c), content="<div>hello world!<div/>")
   inspect!(html(c), content="<div>hello world!<div/>")
   inspect!(html(c), content="<div>hello world!<div/>")
   inspect!(html(c), content="<div>hello world!<div/>")
   t.snapshot!(filename="component.txt")
-
 }

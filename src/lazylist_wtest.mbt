@@ -1,28 +1,29 @@
 ///|
-enum List[A] {
+priv enum List[A] {
   Nil
-  Cons(A,Lazy[List[A]])
+  Cons(A, Lazy[List[A]])
 }
 
 ///|
 let counter : Ref[Int] = Ref::new(0)
 
+///|
 fn List::reverse_append[A](self : List[A], other : List[A]) -> List[A] {
-  let mut acc = other 
+  let mut acc = other
   loop self {
     Nil => ()
-    Cons(x,xs) => {
-      acc = Cons(x,Lazy::from_val(acc))
+    Cons(x, xs) => {
+      acc = Cons(x, Lazy::from_val(acc))
       continue xs.force()
     }
   }
   acc
 }
 
-fn List::reverse[A](self : List[A])  -> List[A] {
+///|
+fn List::reverse[A](self : List[A]) -> List[A] {
   self.reverse_append(Nil)
 }
-
 
 ///|
 fn List::zipWith[A, B, C](
@@ -34,45 +35,40 @@ fn List::zipWith[A, B, C](
     (Nil, _) => Nil
     (_, Nil) => Nil
     (Cons(x, xs), Cons(y, ys)) =>
-      Cons(
-        f(x, y),
-        xs.bind(fn(xs) { ys.map(fn(ys) { xs.zipWith(ys, f) }) }),
-      )
+      Cons(f(x, y), xs.bind(fn(xs) { ys.map(fn(ys) { xs.zipWith(ys, f) }) }))
   }
 }
 
 ///|
 fn List::take[A](self : List[A], n : Int) -> List[A] {
-  let mut acc = Nil 
-  let mut n = n 
+  let mut acc = Nil
+  let mut n = n
   loop self {
     Nil => ()
     Cons(_) if n <= 0 => ()
-    Cons(x,xs) => {
+    Cons(x, xs) => {
       n -= 1
-      acc = Cons(x,Lazy::from_val(acc))
-      continue xs.force() 
+      acc = Cons(x, Lazy::from_val(acc))
+      continue xs.force()
     }
   }
   acc.reverse()
 }
 
+///|
 fn List::nth[A](self : List[A], n : Int) -> A {
-  let mut n = n 
-  let mut res = None 
+  let mut n = n
+  let mut res = None
   loop self {
     Nil => ()
-    Cons(x,_) if n == 0 => {
-      res = Some(x)
-    }
-    Cons(x,xs) => {
+    Cons(x, _) if n == 0 => res = Some(x)
+    Cons(x, xs) => {
       n -= 1
-      continue xs.force() 
+      continue xs.force()
     }
   }
   res.unwrap()
 }
-
 
 ///|
 fn List::tail[A](self : List[A]) -> List[A] {
@@ -83,7 +79,7 @@ fn List::tail[A](self : List[A]) -> List[A] {
 }
 
 ///|
-pub impl[A : Show] Show for List[A] with output(self, logger) {
+impl[A : Show] Show for List[A] with output(self, logger) {
   logger.write_char('[')
   loop self {
     Nil => ()

@@ -52,7 +52,7 @@ let charP = @pc.pchar
 let spaces : @pc.Parser[Char, Array[Char]] = @pc.pchar(' ').repeat()
 
 ///|
-pub fn between[A, B, C](
+fn between[A, B, C](
   content : Parser[A],
   left~ : Parser[B],
   right~ : Parser[C]
@@ -61,18 +61,18 @@ pub fn between[A, B, C](
 }
 
 ///|
-pub trait AST {
+priv trait AST {
   lit(Int) -> Self
   plus(Self, Self) -> Self
 }
 
 ///|
-pub trait Var {
+priv trait Var {
   var(String) -> Self
 }
 
 ///|
-pub type MyString String
+priv type MyString String
 
 ///|
 impl Show for MyString with output(self, logger) {
