@@ -27,3 +27,14 @@ Haskell implementation [gist](https://gist.github.com/illusory0x0/fe4d4aa55ecf47
 
 ### [lazylist/fibs](https://github.com/illusory0x0/lazy.mbt/blob/master/src/lazylist_wtest.mbt)
 
+Haskell implementation [fibs](https://wiki.haskell.org/The_Fibonacci_sequence)
+
+lazy is not recommaned used for this example, lazy is `call by need` is suitable for some lazy values won't actually be used
+
+GHC is implemented by [Graph Reduction](https://en.wikibooks.org/wiki/Haskell/Graph_reduction), `G-machine` never **Stack Overflow**,
+Moonbit hasn't this runtime support, So implement `fibs` use `zipWith` efficiently is impossible.
+
+```haskell
+fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
+```
+
