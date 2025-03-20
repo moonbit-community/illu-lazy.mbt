@@ -8,7 +8,10 @@
   "readme": "README.md",
   "repository": "https://github.com/illusory0x0/lazy.mbt",
   "license": "Apache-2.0",
-  "keywords": ["lazy", "lazy recursion"],
+  "keywords": [
+    "lazy",
+    "lazy recursion"
+  ],
   "description": "a lazy library support recursion",
   "source": "src"
 }
