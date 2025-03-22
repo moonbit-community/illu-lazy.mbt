@@ -21,3 +21,20 @@ pub fn LazyRec::get[A, B](self : LazyRec[A], f : (A) -> B) -> B {
     Some(lazy) => aux(lazy)
   }
 }
+
+///|
+pub fn LazyRec::force[A](self : LazyRec[A]) -> A {
+  match self.memo {
+    None => {
+      let lazy = self.repr.run()
+      self.memo = Some(lazy)
+      lazy.force()
+    }
+    Some(lazy) => lazy.force()
+  }
+}
+
+///|
+pub impl[T : Show] Show for LazyRec[T] with output(self, logger) {
+  self.force().output(logger)
+}

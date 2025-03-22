@@ -25,10 +25,12 @@ impl LazyBuilder {
 
 type LazyRec[A]
 impl LazyRec {
+  force[A](Self[A]) -> A
   get[A, B](Self[A], (A) -> B) -> B
   modify[A](Self[A], (A) -> A) -> Unit
   new[A]((Lazy[A]) -> A) -> Self[A]
 }
+impl[T : Show] Show for LazyRec[T]
 
 // Type aliases
 
