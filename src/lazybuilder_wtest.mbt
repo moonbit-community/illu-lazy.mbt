@@ -11,7 +11,7 @@ test "fix/rec" {
   })
   x.run_force() |> ignore
   let x = x.run_force()
-  inspect!(x.1.force(), content="4")
+  inspect(x.1.force(), content="4")
 }
 
 ///|
@@ -38,15 +38,15 @@ test "fix/even odd" {
       }),
     }
   })
-  let x = nat._ |> Lazy::fix
+  let x = nat.inner() |> Lazy::fix
   let nat = nat.run_force()
   let even = nat.even.force()
   let odd = nat.odd.force()
-  inspect!(
+  inspect(
     Int::until(0, 5).map(even),
     content="[true, false, true, false, true]",
   )
-  inspect!(
+  inspect(
     Int::until(0, 5).map(odd),
     content="[false, true, false, true, false]",
   )
@@ -72,53 +72,53 @@ test "memo test" (t : @test.T) {
   })
   let x = x.run_force()
   let y = y.run_force()
-  inspect!(
+  inspect(
     x,
-    content=
+    content=(
       #|{source: 16, target: "10"}
-    ,
+    ),
   )
-  inspect!(
+  inspect(
     x,
-    content=
+    content=(
       #|{source: 16, target: "10"}
-    ,
+    ),
   )
-  inspect!(
+  inspect(
     x,
-    content=
+    content=(
       #|{source: 16, target: "10"}
-    ,
+    ),
   )
-  inspect!(
+  inspect(
     x,
-    content=
+    content=(
       #|{source: 16, target: "10"}
-    ,
+    ),
   )
-  inspect!(
+  inspect(
     y,
-    content=
+    content=(
       #|{source: 256, target: "100"}
-    ,
+    ),
   )
-  inspect!(
+  inspect(
     y,
-    content=
+    content=(
       #|{source: 256, target: "100"}
-    ,
+    ),
   )
-  inspect!(
+  inspect(
     y,
-    content=
+    content=(
       #|{source: 256, target: "100"}
-    ,
+    ),
   )
-  inspect!(
+  inspect(
     y,
-    content=
+    content=(
       #|{source: 256, target: "100"}
-    ,
+    ),
   )
-  t.snapshot!(filename="memo_test.txt")
+  t.snapshot(filename="memo_test.txt")
 }

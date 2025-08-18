@@ -1,8 +1,8 @@
 ///|
-typealias Seq[A] = @pc.Seq[A]
+typealias @pc.Seq
 
 ///|
-typealias Parser[A] = @pc.Parser[Char, A]
+typealias @pc.Parser[Char, A] as Parser[A]
 
 ///|
 priv struct OriginalParser[Repr] {
@@ -52,10 +52,10 @@ let charP = @pc.pchar
 let spaces : @pc.Parser[Char, Array[Char]] = @pc.pchar(' ').repeat()
 
 ///|
-fn between[A, B, C](
+fn[A, B, C] between(
   content : Parser[A],
   left~ : Parser[B],
-  right~ : Parser[C]
+  right~ : Parser[C],
 ) -> Parser[A] {
   left.and_then(content).omit_first().and_then(right).omit_second()
 }
@@ -72,11 +72,11 @@ priv trait Var {
 }
 
 ///|
-priv type MyString String
+priv struct MyString(String)
 
 ///|
 impl Show for MyString with output(self, logger) {
-  self._.output(logger)
+  self.inner().output(logger)
 }
 
 ///|
@@ -95,7 +95,7 @@ impl Var for MyString with var(self) {
 }
 
 ///|
-fn originalParser[Repr : AST]() -> LazyBuilder[OriginalParser[Repr]] {
+fn[Repr : AST] originalParser() -> LazyBuilder[OriginalParser[Repr]] {
   fn(self) {
     Lazy::from_fun(fn() {
       let litP = Lazy::from_val(intP.map(Repr::lit))
@@ -133,7 +133,7 @@ fn originalParser[Repr : AST]() -> LazyBuilder[OriginalParser[Repr]] {
 }
 
 ///|
-fn extendedParser[Repr : AST + Var]() -> LazyBuilder[ExtendedParser[Repr]] {
+fn[Repr : AST + Var] extendedParser() -> LazyBuilder[ExtendedParser[Repr]] {
   fn f(self : OriginalParser[Repr]) -> ExtendedParser[Repr] {
     let { litP, plusP, wholeP } = self
     let varP = stringP.map(Repr::var)
@@ -158,23 +158,23 @@ test "OriginalParser" {
   let litP = litP.force()
   let plusP = plusP.force()
   let wholeP = wholeP.force()
-  inspect!(
+  inspect(
     litP.parse(Seq::from_string("123")),
-    content=
+    content=(
       #|Some(("123", ))
-    ,
+    ),
   )
-  inspect!(
+  inspect(
     plusP.parse(Seq::from_string("(1 + 2)")),
-    content=
+    content=(
       #|Some(("1 + 2", ))
-    ,
+    ),
   )
-  inspect!(
+  inspect(
     wholeP.parse(Seq::from_string("(1 + 2)")),
-    content=
+    content=(
       #|Some(("1 + 2", ))
-    ,
+    ),
   )
 }
 
@@ -187,22 +187,22 @@ test "ExtendedParser" {
   let plusP = plusP.force()
   let wholeP = wholeP.force()
   let varP = varP.force()
-  inspect!(
+  inspect(
     wholeP.parse(Seq::from_string("(1 + a)")),
-    content=
+    content=(
       #|Some(("1 + a", ))
-    ,
+    ),
   )
-  inspect!(
+  inspect(
     varP.parse(Seq::from_string("abc")),
-    content=
+    content=(
       #|Some(("abc", ))
-    ,
+    ),
   )
-  inspect!(
+  inspect(
     wholeP.parse(Seq::from_string("(1 + (1 + 2))")),
-    content=
+    content=(
       #|Some(("1 + 1 + 2", ))
-    ,
+    ),
   )
 }
