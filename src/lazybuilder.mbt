@@ -9,7 +9,7 @@ pub fn[A] LazyBuilder::run(self : LazyBuilder[A]) -> Lazy[A] {
 }
 
 ///|
-pub fn[A, B] LazyBuilder::inherit(
+pub fn[A, B] LazyBuilder::inherits(
   self : LazyBuilder[A],
   f : (A) -> B,
   g : (B) -> A,

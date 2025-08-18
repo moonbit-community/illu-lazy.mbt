@@ -38,7 +38,7 @@ test "fix/even odd" {
       }),
     }
   })
-  let x = nat.inner() |> Lazy::fix
+  let _ = nat.inner() |> Lazy::fix
   let nat = nat.run_force()
   let even = nat.even.force()
   let odd = nat.odd.force()

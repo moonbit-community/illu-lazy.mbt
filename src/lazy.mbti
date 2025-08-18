@@ -16,7 +16,7 @@ impl[A : Show] Show for Lazy[A]
 
 type LazyBuilder[A]
 impl LazyBuilder {
-  inherit[A, B](Self[A], (A) -> B, (B) -> A) -> Self[B]
+  inherits[A, B](Self[A], (A) -> B, (B) -> A) -> Self[B]
   map[A](Self[A], (A) -> A) -> Self[A]
   new[A]((Lazy[A]) -> A) -> Self[A]
   run[A](Self[A]) -> Lazy[A]

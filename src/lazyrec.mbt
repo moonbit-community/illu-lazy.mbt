@@ -11,14 +11,14 @@ pub fn[A] LazyRec::modify(self : LazyRec[A], f : (A) -> A) -> Unit {
 
 ///|
 pub fn[A, B] LazyRec::get(self : LazyRec[A], f : (A) -> B) -> B {
-  fn aux(lazy) {
-    self.memo = Some(lazy)
-    lazy.force() |> f
+  fn aux(lz) {
+    self.memo = Some(lz)
+    lz.force() |> f
   }
 
   match self.memo {
     None => aux(self.repr.run())
-    Some(lazy) => aux(lazy)
+    Some(lz) => aux(lz)
   }
 }
 
@@ -26,11 +26,11 @@ pub fn[A, B] LazyRec::get(self : LazyRec[A], f : (A) -> B) -> B {
 pub fn[A] LazyRec::force(self : LazyRec[A]) -> A {
   match self.memo {
     None => {
-      let lazy = self.repr.run()
-      self.memo = Some(lazy)
-      lazy.force()
+      let lz = self.repr.run()
+      self.memo = Some(lz)
+      lz.force()
     }
-    Some(lazy) => lazy.force()
+    Some(lz) => lz.force()
   }
 }
 

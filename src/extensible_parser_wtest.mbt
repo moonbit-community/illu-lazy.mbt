@@ -148,7 +148,7 @@ fn[Repr : AST + Var] extendedParser() -> LazyBuilder[ExtendedParser[Repr]] {
   }
 
   let originalParser : LazyBuilder[OriginalParser[Repr]] = originalParser()
-  originalParser.inherit(f, g)
+  originalParser.inherits(f, g)
 }
 
 ///|

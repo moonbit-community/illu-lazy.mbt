@@ -56,13 +56,13 @@ fn[A] List::take(self : List[A], n : Int) -> List[A] {
 }
 
 ///|
-fn[A] List::nth(self : List[A], n : Int) -> A {
+fn[A] List::_nth(self : List[A], n : Int) -> A {
   let mut n = n
   let mut res = None
   loop self {
     Nil => ()
     Cons(x, _) if n == 0 => res = Some(x)
-    Cons(x, xs) => {
+    Cons(_, xs) => {
       n -= 1
       continue xs.force()
     }
@@ -74,7 +74,7 @@ fn[A] List::nth(self : List[A], n : Int) -> A {
 fn[A] List::tail(self : List[A]) -> List[A] {
   match self {
     Nil => Nil
-    Cons(x, xs) => xs.force()
+    Cons(_, xs) => xs.force()
   }
 }
 
