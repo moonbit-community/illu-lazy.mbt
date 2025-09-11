@@ -8,7 +8,7 @@ priv enum List[A] {
 let counter : Ref[Int] = Ref::new(0)
 
 ///|
-fn List::reverse_append[A](self : List[A], other : List[A]) -> List[A] {
+fn[A] List::reverse_append(self : List[A], other : List[A]) -> List[A] {
   let mut acc = other
   loop self {
     Nil => ()
@@ -21,15 +21,15 @@ fn List::reverse_append[A](self : List[A], other : List[A]) -> List[A] {
 }
 
 ///|
-fn List::reverse[A](self : List[A]) -> List[A] {
+fn[A] List::reverse(self : List[A]) -> List[A] {
   self.reverse_append(Nil)
 }
 
 ///|
-fn List::zipWith[A, B, C](
+fn[A, B, C] List::zipWith(
   self : List[A],
   other : List[B],
-  f : (A, B) -> C
+  f : (A, B) -> C,
 ) -> List[C] {
   match (self, other) {
     (Nil, _) => Nil
@@ -40,7 +40,7 @@ fn List::zipWith[A, B, C](
 }
 
 ///|
-fn List::take[A](self : List[A], n : Int) -> List[A] {
+fn[A] List::take(self : List[A], n : Int) -> List[A] {
   let mut acc = Nil
   let mut n = n
   loop self {
@@ -56,7 +56,7 @@ fn List::take[A](self : List[A], n : Int) -> List[A] {
 }
 
 ///|
-fn List::nth[A](self : List[A], n : Int) -> A {
+fn[A] List::nth(self : List[A], n : Int) -> A {
   let mut n = n
   let mut res = None
   loop self {
@@ -71,7 +71,7 @@ fn List::nth[A](self : List[A], n : Int) -> A {
 }
 
 ///|
-fn List::tail[A](self : List[A]) -> List[A] {
+fn[A] List::tail(self : List[A]) -> List[A] {
   match self {
     Nil => Nil
     Cons(x, xs) => xs.force()
@@ -114,18 +114,18 @@ test {
     )
   })
   let fibs = fibs_rec.get(fn(x) { x })
-  inspect!(
+  inspect(
     fibs.take(20),
     content="[0,1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181,]",
   )
-  inspect!(
+  inspect(
     fibs.take(20),
     content="[0,1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181,]",
   )
   let fibs = fibs_rec.get(fn(x) { x })
-  inspect!(
+  inspect(
     fibs.take(20),
     content="[0,1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181,]",
   )
-  inspect!(counter, content="{val: 19}")
+  inspect(counter, content="{val: 19}")
 }

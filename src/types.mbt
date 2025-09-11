@@ -10,7 +10,7 @@ struct Lazy[A] {
 }
 
 ///|
-type LazyBuilder[A] (Lazy[A]) -> Lazy[A]
+struct LazyBuilder[A]((Lazy[A]) -> Lazy[A])
 
 ///|
 struct LazyRec[A] {

@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "deps": {
     "illusory0x0/fun": "0.2.1",
-    "illusory0x0/parserc": "0.1.2"
+    "illusory0x0/simple_parserc": "0.2.1"
   },
   "readme": "README.md",
   "repository": "https://github.com/illusory0x0/lazy.mbt",

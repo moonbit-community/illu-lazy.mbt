@@ -1,8 +1,5 @@
 ///|
-typealias Seq[A] = @pc.Seq[A]
-
-///|
-typealias Parser[A] = @pc.Parser[Char, A]
+typealias @pc.Parser
 
 ///|
 priv struct OriginalParser[Repr] {
@@ -20,45 +17,32 @@ priv struct ExtendedParser[Repr] {
 }
 
 ///|
-let intP = @pc.pint
+let intP : @pc.Parser[Int] = @pc.foldl(
+  @pc.digit,
+  @pc.pure(0),
+  @pc.pure((acc, x) => acc * 10 + (Char::to_int(x) - '0'.to_int())),
+)
 
 ///|
-let letterP : Parser[Char] = @pc.pvalue(fn(ch : Char) {
-  if ch.is_ascii_alphabetic() {
-    Some(ch)
-  } else {
-    None
-  }
-})
+let letterP : Parser[Char] = @pc.alphabetic
 
 ///|
-let stringP : Parser[String] = letterP
-  .and_then(letterP.repeat())
-  .map(fn {
-    (x, xs) => {
-      let buf = StringBuilder::new(size_hint=2 * (xs.length() + 1))
-      buf.write_char(x)
-      for x in xs {
-        buf.write_char(x)
-      }
-      buf.to_string()
-    }
+let stringP : Parser[String] = {
+  let buffer = StringBuilder::new()
+  letterP
+  .many_each(fn(ch) { buffer.write_char(ch) })
+  .map(fn(_) {
+    let res = buffer.to_string()
+    buffer.reset()
+    res
   })
-
-///|
-let charP = @pc.pchar
-
-///|
-let spaces : @pc.Parser[Char, Array[Char]] = @pc.pchar(' ').repeat()
-
-///|
-fn between[A, B, C](
-  content : Parser[A],
-  left~ : Parser[B],
-  right~ : Parser[C]
-) -> Parser[A] {
-  left.and_then(content).omit_first().and_then(right).omit_second()
 }
+
+///|
+let charP = @pc.any
+
+///|
+let spaces : @pc.Parser[Char] = @pc.spaces
 
 ///|
 priv trait AST {
@@ -68,15 +52,15 @@ priv trait AST {
 
 ///|
 priv trait Var {
-  var(String) -> Self
+  var_(String) -> Self
 }
 
 ///|
-priv type MyString String
+priv struct MyString(String)
 
 ///|
 impl Show for MyString with output(self, logger) {
-  self._.output(logger)
+  self.inner().output(logger)
 }
 
 ///|
@@ -86,45 +70,41 @@ impl AST for MyString with lit(self) {
 
 ///|
 impl AST for MyString with plus(lhs, rhs) {
-  "\{lhs._} + \{rhs._}"
+  "(\{lhs.inner()} + \{rhs.inner()})"
 }
 
 ///|
-impl Var for MyString with var(self) {
+impl Var for MyString with var_(self) {
   self
 }
 
 ///|
-fn originalParser[Repr : AST]() -> LazyBuilder[OriginalParser[Repr]] {
+fn[Repr : AST] originalParser() -> LazyBuilder[OriginalParser[Repr]] {
   fn(self) {
     Lazy::from_fun(fn() {
       let litP = Lazy::from_val(intP.map(Repr::lit))
       let plusP = Lazy::from_fun(fn() {
-        Parser::new(fn(seq) {
+        Parser::Parser(fn(input) {
           let plusP = self.force().wholeP.map(fn(wholeP) {
-            between(
-              wholeP
-              .and_then(spaces)
-              .omit_second()
-              .and_then(charP('+'))
-              .omit_second()
-              .and_then(spaces)
-              .omit_second()
-              .and_then(wholeP),
-              left=charP('('),
-              right=charP(')'),
-            ).map(fn { (lhs, rhs) => Repr::plus(lhs, rhs) })
+            @pc.between(
+              @pc.foldl1(
+                wholeP,
+                @pc.char('+').discard_left(@pc.pure(Repr::plus)),
+              ),
+              open=@pc.char('('),
+              close=@pc.char(')'),
+            )
           })
-          plusP.force().parse(seq)
+          plusP.force()(input)
         })
       })
       let wholeP = Lazy::from_fun(fn() {
-        Parser::new(fn(seq) {
+        Parser::Parser(fn(input) {
           let { litP, plusP, .. } = self.force()
           let wholeP : Lazy[Parser[Repr]] = litP.bind(fn(litP) {
-            plusP.map(fn(plusP) { plusP.or_else(litP) })
+            plusP.map(fn(plusP) { plusP | litP })
           })
-          wholeP.force().parse(seq)
+          wholeP.force()(input)
         })
       })
       { litP, plusP, wholeP }
@@ -133,11 +113,11 @@ fn originalParser[Repr : AST]() -> LazyBuilder[OriginalParser[Repr]] {
 }
 
 ///|
-fn extendedParser[Repr : AST + Var]() -> LazyBuilder[ExtendedParser[Repr]] {
+fn[Repr : AST + Var] extendedParser() -> LazyBuilder[ExtendedParser[Repr]] {
   fn f(self : OriginalParser[Repr]) -> ExtendedParser[Repr] {
     let { litP, plusP, wholeP } = self
-    let varP = stringP.map(Repr::var)
-    let wholeP = Lazy::new(fn() { wholeP.force().or_else(varP) })
+    let varP = stringP.map(Var::var_)
+    let wholeP = Lazy::new(fn() { varP | wholeP.force() })
     let varP = Lazy::from_val(varP)
     { varP, litP, plusP, wholeP }
   }
@@ -148,7 +128,7 @@ fn extendedParser[Repr : AST + Var]() -> LazyBuilder[ExtendedParser[Repr]] {
   }
 
   let originalParser : LazyBuilder[OriginalParser[Repr]] = originalParser()
-  originalParser.inherit(f, g)
+  originalParser.inherit_(f, g)
 }
 
 ///|
@@ -158,23 +138,23 @@ test "OriginalParser" {
   let litP = litP.force()
   let plusP = plusP.force()
   let wholeP = wholeP.force()
-  inspect!(
-    litP.parse(Seq::from_string("123")),
-    content=
-      #|Some(("123", ))
-    ,
+  inspect(
+    litP.run(@pc.Input::new("123")),
+    content=(
+      #|"123"
+    ),
   )
-  inspect!(
-    plusP.parse(Seq::from_string("(1 + 2)")),
-    content=
-      #|Some(("1 + 2", ))
-    ,
+  inspect(
+    plusP.run(@pc.Input::new("(1+2)")),
+    content=(
+      #|"(1 + 2)"
+    ),
   )
-  inspect!(
-    wholeP.parse(Seq::from_string("(1 + 2)")),
-    content=
-      #|Some(("1 + 2", ))
-    ,
+  inspect(
+    wholeP.run(@pc.Input::new("(1+2)")),
+    content=(
+      #|"(1 + 2)"
+    ),
   )
 }
 
@@ -187,22 +167,22 @@ test "ExtendedParser" {
   let plusP = plusP.force()
   let wholeP = wholeP.force()
   let varP = varP.force()
-  inspect!(
-    wholeP.parse(Seq::from_string("(1 + a)")),
-    content=
-      #|Some(("1 + a", ))
-    ,
+  inspect(
+    wholeP.run(@pc.Input::new("(1+a)")),
+    content=(
+      #|"(1 + a)"
+    ),
   )
-  inspect!(
-    varP.parse(Seq::from_string("abc")),
-    content=
-      #|Some(("abc", ))
-    ,
+  inspect(
+    varP.run(@pc.Input::new("abc")),
+    content=(
+      #|"abc"
+    ),
   )
-  inspect!(
-    wholeP.parse(Seq::from_string("(1 + (1 + 2))")),
-    content=
-      #|Some(("1 + 1 + 2", ))
-    ,
+  inspect(
+    wholeP.run(@pc.Input::new("(1+(1+2))")),
+    content=(
+      #|"(1 + (1 + 2))"
+    ),
   )
 }

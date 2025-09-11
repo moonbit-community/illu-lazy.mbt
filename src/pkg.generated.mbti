@@ -1,0 +1,35 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "illusory0x0/lazy"
+
+// Values
+
+// Errors
+
+// Types and methods
+type Lazy[A]
+fn[A, B] Lazy::bind(Self[A], (A) -> Self[B]) -> Self[B]
+fn[A] Lazy::fix((Self[A]) -> Self[A]) -> Self[A]
+fn[A] Lazy::force(Self[A]) -> A
+fn[A] Lazy::join(Self[Self[A]]) -> Self[A]
+fn[A, B] Lazy::map(Self[A], (A) -> B) -> Self[B]
+fn[A] Lazy::new(() -> A) -> Self[A]
+impl[A : Show] Show for Lazy[A]
+
+type LazyBuilder[A]
+fn[A, B] LazyBuilder::inherit_(Self[A], (A) -> B, (B) -> A) -> Self[B]
+fn[A] LazyBuilder::map(Self[A], (A) -> A) -> Self[A]
+fn[A] LazyBuilder::new((Lazy[A]) -> A) -> Self[A]
+fn[A] LazyBuilder::run(Self[A]) -> Lazy[A]
+fn[A] LazyBuilder::run_force(Self[A]) -> A
+
+type LazyRec[A]
+fn[A] LazyRec::force(Self[A]) -> A
+fn[A, B] LazyRec::get(Self[A], (A) -> B) -> B
+fn[A] LazyRec::modify(Self[A], (A) -> A) -> Unit
+fn[A] LazyRec::new((Lazy[A]) -> A) -> Self[A]
+impl[T : Show] Show for LazyRec[T]
+
+// Type aliases
+
+// Traits
+
