@@ -8,7 +8,7 @@ a lazy library support recursion
 
 ### [extensible parser](https://github.com/illusory0x0/lazy.mbt/blob/master/src/extensible_parser_wtest.mbt)
 
-This example refer to zhihu blogs [愿你走出半生，归来仍是Java Parser - 圆角骑士魔理沙的文章 - 知乎](https://zhuanlan.zhihu.com/p/51811022)
+This example refer to zhihu blogs [愿你走出半生，归来仍是 Java Parser - 圆角骑士魔理沙的文章 - 知乎](https://zhuanlan.zhihu.com/p/51811022)
 
 Haskell implementation [MarisaKirisame/extensible-parser](https://github.com/MarisaKirisame/extensible-parser)
 
