@@ -13,6 +13,8 @@ fn[A] Lazy::force(Self[A]) -> A
 fn[A] Lazy::join(Self[Self[A]]) -> Self[A]
 fn[A, B] Lazy::map(Self[A], (A) -> B) -> Self[B]
 fn[A] Lazy::new(() -> A) -> Self[A]
+fn[A : Show] Lazy::output(Self[A], &Logger) -> Unit // from trait `Show`
+fn[A : Show] Lazy::to_string(Self[A]) -> String // from trait `Show`
 impl[A : Show] Show for Lazy[A]
 
 type LazyBuilder[A]
@@ -27,6 +29,8 @@ fn[A] LazyRec::force(Self[A]) -> A
 fn[A, B] LazyRec::get(Self[A], (A) -> B) -> B
 fn[A] LazyRec::modify(Self[A], (A) -> A) -> Unit
 fn[A] LazyRec::new((Lazy[A]) -> A) -> Self[A]
+fn[T : Show] LazyRec::output(Self[T], &Logger) -> Unit // from trait `Show`
+fn[T : Show] LazyRec::to_string(Self[T]) -> String // from trait `Show`
 impl[T : Show] Show for LazyRec[T]
 
 // Type aliases
