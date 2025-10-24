@@ -1,6 +1,6 @@
 {
   "name": "illusory0x0/lazy",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "deps": {
     "illusory0x0/simple_parserc": "0.2.1"
   },
