@@ -9,7 +9,6 @@ on:
   push:
     branches:
       - master
-      - main
       
   pull_request:
 
@@ -110,7 +109,7 @@ jobs:
           find . -name *.mod.json -exec npx prettier --write {} \;
           find . -name *.pkg.json -exec npx prettier --write {} \;
           git diff --exit-code;
-
+# here doesn't run `moon install`, so .mooncakes is not existed
   check-typos:
     runs-on: ubuntu-latest
 
