@@ -1,5 +1,5 @@
 ///|
-typealias @pc.Parser
+using @pc {type Parser}
 
 ///|
 priv struct OriginalParser[Repr] {
@@ -60,7 +60,7 @@ priv struct MyString(String)
 
 ///|
 impl Show for MyString with output(self, logger) {
-  self.inner().output(logger)
+  self.0.output(logger)
 }
 
 ///|
@@ -70,7 +70,7 @@ impl AST for MyString with lit(self) {
 
 ///|
 impl AST for MyString with plus(lhs, rhs) {
-  "(\{lhs.inner()} + \{rhs.inner()})"
+  "(\{lhs.0} + \{rhs.0})"
 }
 
 ///|

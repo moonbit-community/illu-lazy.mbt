@@ -38,7 +38,7 @@ test "fix/even odd" {
       }),
     }
   })
-  let x = nat.inner() |> Lazy::fix
+  let x = nat.0 |> Lazy::fix
   let nat = nat.run_force()
   let even = nat.even.force()
   let odd = nat.odd.force()
@@ -53,7 +53,7 @@ test "fix/even odd" {
 }
 
 ///|
-test "memo test" (t : @test.T) {
+test "memo test" (t : @test.Test) {
   struct X {
     source : Int
     target : Lazy[String]

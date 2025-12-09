@@ -7,31 +7,27 @@ package "illusory0x0/lazy"
 
 // Types and methods
 type Lazy[A]
-fn[A, B] Lazy::bind(Self[A], (A) -> Self[B]) -> Self[B]
-fn[A] Lazy::fix((Self[A]) -> Self[A]) -> Self[A]
-fn[A] Lazy::force(Self[A]) -> A
-fn[A] Lazy::join(Self[Self[A]]) -> Self[A]
-fn[A, B] Lazy::map(Self[A], (A) -> B) -> Self[B]
-fn[A] Lazy::new(() -> A) -> Self[A]
-fn[A : Show] Lazy::output(Self[A], &Logger) -> Unit // from trait `Show`
-fn[A : Show] Lazy::to_string(Self[A]) -> String // from trait `Show`
-impl[A : Show] Show for Lazy[A]
+pub fn[A, B] Lazy::bind(Self[A], (A) -> Self[B]) -> Self[B]
+pub fn[A] Lazy::fix((Self[A]) -> Self[A]) -> Self[A]
+pub fn[A] Lazy::force(Self[A]) -> A
+pub fn[A] Lazy::join(Self[Self[A]]) -> Self[A]
+pub fn[A, B] Lazy::map(Self[A], (A) -> B) -> Self[B]
+pub fn[A] Lazy::new(() -> A) -> Self[A]
+pub impl[A : Show] Show for Lazy[A]
 
 type LazyBuilder[A]
-fn[A, B] LazyBuilder::inherit_(Self[A], (A) -> B, (B) -> A) -> Self[B]
-fn[A] LazyBuilder::map(Self[A], (A) -> A) -> Self[A]
-fn[A] LazyBuilder::new((Lazy[A]) -> A) -> Self[A]
-fn[A] LazyBuilder::run(Self[A]) -> Lazy[A]
-fn[A] LazyBuilder::run_force(Self[A]) -> A
+pub fn[A, B] LazyBuilder::inherit_(Self[A], (A) -> B, (B) -> A) -> Self[B]
+pub fn[A] LazyBuilder::map(Self[A], (A) -> A) -> Self[A]
+pub fn[A] LazyBuilder::new((Lazy[A]) -> A) -> Self[A]
+pub fn[A] LazyBuilder::run(Self[A]) -> Lazy[A]
+pub fn[A] LazyBuilder::run_force(Self[A]) -> A
 
 type LazyRec[A]
-fn[A] LazyRec::force(Self[A]) -> A
-fn[A, B] LazyRec::get(Self[A], (A) -> B) -> B
-fn[A] LazyRec::modify(Self[A], (A) -> A) -> Unit
-fn[A] LazyRec::new((Lazy[A]) -> A) -> Self[A]
-fn[T : Show] LazyRec::output(Self[T], &Logger) -> Unit // from trait `Show`
-fn[T : Show] LazyRec::to_string(Self[T]) -> String // from trait `Show`
-impl[T : Show] Show for LazyRec[T]
+pub fn[A] LazyRec::force(Self[A]) -> A
+pub fn[A, B] LazyRec::get(Self[A], (A) -> B) -> B
+pub fn[A] LazyRec::modify(Self[A], (A) -> A) -> Unit
+pub fn[A] LazyRec::new((Lazy[A]) -> A) -> Self[A]
+pub impl[T : Show] Show for LazyRec[T]
 
 // Type aliases
 
