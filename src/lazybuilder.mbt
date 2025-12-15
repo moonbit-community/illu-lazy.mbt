@@ -5,11 +5,11 @@ pub fn[A] LazyBuilder::run_force(self : LazyBuilder[A]) -> A {
 
 ///|
 pub fn[A] LazyBuilder::run(self : LazyBuilder[A]) -> Lazy[A] {
-  Lazy::fix(self.inner())
+  Lazy::fix(self.0)
 }
 
 ///|
-typealias (A) -> B as Arrow[A, B]
+type Arrow[A, B] = (A) -> B
 
 ///|
 fn[A, B, C] compose(f : Arrow[B, C], g : Arrow[A, B]) -> Arrow[A, C] {
@@ -24,7 +24,7 @@ pub fn[A, B] LazyBuilder::inherit_(
 ) -> LazyBuilder[B] {
   let ab = fn(a : Lazy[A]) { a.map(f) }
   let ba = fn(b : Lazy[B]) { b.map(g) }
-  let aa = self.inner()
+  let aa = self.0
   compose(ab, compose(aa, ba))
 }
 
@@ -34,7 +34,7 @@ pub fn[A] LazyBuilder::map(
   f : (A) -> A,
 ) -> LazyBuilder[A] {
   let aa = fn(a : Lazy[A]) { a.map(f) }
-  compose(aa, self.inner())
+  compose(aa, self.0)
 }
 
 ///|

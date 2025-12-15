@@ -1,5 +1,5 @@
 ///|
-test (t : @test.T) {
+test (t : @test.Test) {
   struct ComponentRepr {
     text : String
     html : Lazy[String]
@@ -19,11 +19,11 @@ test (t : @test.T) {
   }
 
   fn modify_text(self : Component, f : (String) -> String) -> Unit {
-    self.inner().modify(fn(self) { { text: f(self.text), html: self.html } })
+    self.0.modify(fn(self) { { text: f(self.text), html: self.html } })
   }
 
   fn html(self : Component) -> String {
-    self.inner().get(fn(self) { self.html.force() })
+    self.0.get(fn(self) { self.html.force() })
   }
 
   let c = new()
