@@ -1,7 +1,8 @@
 target/
 .mooncakes/
 .DS_Store
-.vscode
+
+node_modules
 build
 .moonagent
 _build/

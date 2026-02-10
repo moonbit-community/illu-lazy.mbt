@@ -1,0 +1,109 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "illusory0x0/simple_parserc"
+
+import(
+  "moonbitlang/core/list"
+)
+
+// Values
+pub let alphabetic : Parser[Char]
+
+pub let any : Parser[Char]
+
+pub let digit : Parser[Char]
+
+pub let space : Parser[Char]
+
+pub let space1 : Parser[Char]
+
+pub let spaces : Parser[Char]
+
+// Errors
+pub(all) suberror ParseError {
+  ParseError(SourcePos, @list.List[String])
+}
+pub fn ParseError::cons(Self, String) -> Self
+#as_free_fn
+pub fn ParseError::expect(row~ : Int, col~ : Int, String) -> Self
+pub fn ParseError::source_pos(Self) -> SourcePos
+pub impl Show for ParseError
+
+// Types and methods
+pub(all) struct Input {
+  chars : StringView
+  row : Int
+  col : Int
+}
+#as_free_fn
+pub fn Input::new(StringView) -> Self
+pub impl Show for Input
+
+pub(all) struct Parser[A]((Input) -> (A, Input) raise ParseError)
+#as_free_fn
+pub fn[A, B, C] Parser::between(Self[A], open~ : Self[B], close~ : Self[C]) -> Self[A]
+#as_free_fn
+pub fn[A, B] Parser::bind(Self[A], (A) -> Self[B]) -> Self[B]
+#as_free_fn
+pub fn Parser::char(Char) -> Self[Char]
+#as_free_fn
+pub fn[A] Parser::curly_bracket(Self[A]) -> Self[A]
+#as_free_fn
+pub fn[A, B] Parser::discard_left(Self[A], Self[B]) -> Self[B]
+#as_free_fn
+pub fn[A, B] Parser::discard_right(Self[A], Self[B]) -> Self[A]
+#as_free_fn
+pub fn[A] Parser::discard_spaces(Self[A]) -> Self[A]
+#as_free_fn
+pub fn[A] Parser::eof(A) -> Self[A]
+#as_free_fn
+pub fn[A, B] Parser::foldl(Self[A], Self[B], Self[(B, A) -> B]) -> Self[B]
+#as_free_fn
+pub fn[A] Parser::foldl1(Self[A], Self[(A, A) -> A]) -> Self[A]
+#as_free_fn
+pub fn[A, B] Parser::foldr(Self[A], Self[B], Self[(B, A) -> B]) -> Self[B]
+#as_free_fn
+pub fn[A] Parser::foldr1(Self[A], Self[(A, A) -> A]) -> Self[A]
+#deprecated
+pub fn[A] Parser::inner(Self[A]) -> (Input) -> (A, Input) raise ParseError
+#as_free_fn
+pub fn[A] Parser::label(Self[A], String) -> Self[A]
+#as_free_fn
+pub fn[A] Parser::many(Self[A]) -> Self[Array[A]]
+#as_free_fn
+pub fn[A] Parser::many_each(Self[A], (A) -> Unit) -> Self[Unit]
+#as_free_fn
+pub fn[A, B] Parser::map(Self[A], (A) -> B) -> Self[B]
+#as_free_fn
+pub fn[A, B] Parser::map_srcpos(Self[A], (SourcePos, A) -> B) -> Self[B]
+#as_free_fn
+pub fn Parser::none_of(String) -> Self[Char]
+#as_free_fn
+pub fn Parser::one_of(String) -> Self[Char]
+#as_free_fn
+pub fn[A] Parser::or(Self[A], Self[A]) -> Self[A]
+#as_free_fn
+pub fn[A] Parser::pure(A) -> Self[A]
+#as_free_fn
+pub fn[A] Parser::round_bracket(Self[A]) -> Self[A]
+#as_free_fn
+pub fn[A] Parser::run(Self[A], Input) -> A raise ParseError
+#as_free_fn
+pub fn Parser::satisfy((Char) -> Bool, label~ : String) -> Self[Char]
+#as_free_fn
+pub fn[A] Parser::square_bracket(Self[A]) -> Self[A]
+#as_free_fn
+pub fn Parser::string(String) -> Self[String]
+pub impl[A] BitOr for Parser[A]
+
+pub(all) struct SourcePos {
+  row : Int
+  col : Int
+}
+pub impl Compare for SourcePos
+pub impl Eq for SourcePos
+pub impl Show for SourcePos
+
+// Type aliases
+
+// Traits
+
