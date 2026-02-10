@@ -1,0 +1,346 @@
+{
+  "source_dir": "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy",
+  "name": "illusory0x0/lazy",
+  "packages": [
+    {
+      "is-main": false,
+      "is-third-party": false,
+      "root-path": "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/src",
+      "root": "illusory0x0/lazy",
+      "rel": "",
+      "files": {
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/src/component_wtest.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/src/extensible_parser_wtest.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/src/lazy.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/src/lazy_wtest.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/src/lazybuilder.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/src/lazybuilder_wtest.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/src/lazylist_wtest.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/src/lazyrec.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/src/types.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {},
+      "mbt-md-files": {},
+      "deps": [
+        {
+          "path": "illusory0x0/simple_parserc",
+          "alias": "pc",
+          "fspath": "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/third_party/simple_parserc/src"
+        },
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "/Users/dii/.moon/lib/core/prelude"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "/Users/dii/.moon/lib/core/prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "/Users/dii/.moon/lib/core/prelude"
+        }
+      ],
+      "artifact": "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/_build/wasm-gc/release/check/lazy.mi"
+    },
+    {
+      "is-main": false,
+      "is-third-party": true,
+      "root-path": "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/third_party/simple_parserc/src",
+      "root": "illusory0x0/simple_parserc",
+      "rel": "",
+      "files": {
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/third_party/simple_parserc/src/between.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/third_party/simple_parserc/src/combinator.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/third_party/simple_parserc/src/consumer.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/third_party/simple_parserc/src/fold.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/third_party/simple_parserc/src/monadic.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/third_party/simple_parserc/src/types.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/third_party/simple_parserc/src/utils.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/third_party/simple_parserc/src/values.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "wbtest-files": {},
+      "test-files": {
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/third_party/simple_parserc/src/ex_lisp_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/third_party/simple_parserc/src/ex_sexp_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        },
+        "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/third_party/simple_parserc/src/ex_test.mbt": {
+          "backend": [
+            "Wasm",
+            "WasmGC",
+            "Js",
+            "Native",
+            "LLVM"
+          ],
+          "optlevel": [
+            "Release",
+            "Debug"
+          ]
+        }
+      },
+      "mbt-md-files": {},
+      "deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "/Users/dii/.moon/lib/core/prelude"
+        }
+      ],
+      "wbtest-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "/Users/dii/.moon/lib/core/prelude"
+        }
+      ],
+      "test-deps": [
+        {
+          "path": "moonbitlang/core/prelude",
+          "alias": "prelude",
+          "fspath": "/Users/dii/.moon/lib/core/prelude"
+        }
+      ],
+      "artifact": "/Users/dii/repos/peter-jerry-ye/moonbit-warnings-fixer/.tmp/pre-release-fix4/lazy/_build/wasm-gc/release/check/.mooncakes/illusory0x0/simple_parserc/simple_parserc.mi"
+    }
+  ],
+  "deps": [
+    "illusory0x0/simple_parserc"
+  ],
+  "backend": "wasm-gc",
+  "opt_level": "release",
+  "source": "src"
+}

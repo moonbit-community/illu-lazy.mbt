@@ -2,7 +2,10 @@
   "name": "illusory0x0/lazy",
   "version": "0.1.4",
   "deps": {
-    "illusory0x0/simple_parserc": "0.2.1"
+    "illusory0x0/simple_parserc": {
+      "path": "third_party/simple_parserc",
+      "version": "0.2.1"
+    }
   },
   "readme": "README.md",
   "repository": "https://github.com/illusory0x0/lazy.mbt",
