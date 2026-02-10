@@ -84,7 +84,7 @@ fn[Repr : AST] originalParser() -> LazyBuilder[OriginalParser[Repr]] {
     Lazy::from_fun(fn() {
       let litP = Lazy::from_val(intP.map(Repr::lit))
       let plusP = Lazy::from_fun(fn() {
-        Parser::Parser(fn(input) {
+        Parser::Parser(input => {
           let plusP = self.force().wholeP.map(fn(wholeP) {
             @pc.between(
               @pc.foldl1(
@@ -99,7 +99,7 @@ fn[Repr : AST] originalParser() -> LazyBuilder[OriginalParser[Repr]] {
         })
       })
       let wholeP = Lazy::from_fun(fn() {
-        Parser::Parser(fn(input) {
+        Parser::Parser(input => {
           let { litP, plusP, .. } = self.force()
           let wholeP : Lazy[Parser[Repr]] = litP.bind(fn(litP) {
             plusP.map(fn(plusP) { plusP | litP })
