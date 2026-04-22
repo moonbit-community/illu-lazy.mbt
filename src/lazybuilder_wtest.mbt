@@ -53,12 +53,25 @@ test "fix/even odd" {
 }
 
 ///|
+priv struct MemoTestX {
+  source : Int
+  target : Lazy[String]
+}
+
+///|
+impl Show for MemoTestX with output(self, logger) {
+  let builder = StringBuilder::new()
+  builder.write_string("{source: ")
+  builder.write_object(self.source)
+  builder.write_string(", target: ")
+  builder.write_object(self.target)
+  builder.write_char('}')
+  builder.output(logger)
+}
+
+///|
 test "memo test" (t : @test.Test) {
-  struct X {
-    source : Int
-    target : Lazy[String]
-  } derive(Show)
-  let x : LazyBuilder[X] = LazyBuilder::new(fn(self : Lazy[X]) {
+  let x : LazyBuilder[MemoTestX] = LazyBuilder::new(fn(self : Lazy[MemoTestX]) {
     {
       source: 16,
       target: Lazy::new(fn() {
