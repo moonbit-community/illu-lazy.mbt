@@ -10,11 +10,13 @@ let counter : Ref[Int] = Ref::new(0)
 ///|
 fn[A] List::reverse_append(self : List[A], other : List[A]) -> List[A] {
   let mut acc = other
-  loop self {
-    Nil => ()
-    Cons(x, xs) => {
-      acc = Cons(x, Lazy::from_val(acc))
-      continue xs.force()
+  for current = self {
+    match current {
+      Nil => break
+      Cons(x, xs) => {
+        acc = Cons(x, Lazy::from_val(acc))
+        continue xs.force()
+      }
     }
   }
   acc
@@ -43,13 +45,15 @@ fn[A, B, C] List::zipWith(
 fn[A] List::take(self : List[A], n : Int) -> List[A] {
   let mut acc = Nil
   let mut n = n
-  loop self {
-    Nil => ()
-    Cons(_) if n <= 0 => ()
-    Cons(x, xs) => {
-      n -= 1
-      acc = Cons(x, Lazy::from_val(acc))
-      continue xs.force()
+  for current = self {
+    match current {
+      Nil => break
+      Cons(_) if n <= 0 => break
+      Cons(x, xs) => {
+        n -= 1
+        acc = Cons(x, Lazy::from_val(acc))
+        continue xs.force()
+      }
     }
   }
   acc.reverse()
@@ -59,12 +63,17 @@ fn[A] List::take(self : List[A], n : Int) -> List[A] {
 fn[A] List::nth(self : List[A], n : Int) -> A {
   let mut n = n
   let mut res = None
-  loop self {
-    Nil => ()
-    Cons(x, _) if n == 0 => res = Some(x)
-    Cons(x, xs) => {
-      n -= 1
-      continue xs.force()
+  for current = self {
+    match current {
+      Nil => break
+      Cons(x, _) if n == 0 => {
+        res = Some(x)
+        break
+      }
+      Cons(_, xs) => {
+        n -= 1
+        continue xs.force()
+      }
     }
   }
   res.unwrap()
@@ -81,12 +90,14 @@ fn[A] List::tail(self : List[A]) -> List[A] {
 ///|
 impl[A : Show] Show for List[A] with output(self, logger) {
   logger.write_char('[')
-  loop self {
-    Nil => ()
-    Cons(x, xs) => {
-      x.output(logger)
-      logger.write_char(',')
-      continue xs.force()
+  for current = self {
+    match current {
+      Nil => break
+      Cons(x, xs) => {
+        x.output(logger)
+        logger.write_char(',')
+        continue xs.force()
+      }
     }
   }
   logger.write_char(']')
