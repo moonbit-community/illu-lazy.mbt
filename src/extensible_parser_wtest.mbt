@@ -141,19 +141,19 @@ test "OriginalParser" {
   inspect(
     litP.run(@pc.Input::new("123")),
     content=(
-      #|"123"
+      #|123
     ),
   )
   inspect(
     plusP.run(@pc.Input::new("(1+2)")),
     content=(
-      #|"(1 + 2)"
+      #|(1 + 2)
     ),
   )
   inspect(
     wholeP.run(@pc.Input::new("(1+2)")),
     content=(
-      #|"(1 + 2)"
+      #|(1 + 2)
     ),
   )
 }
@@ -170,19 +170,19 @@ test "ExtendedParser" {
   inspect(
     wholeP.run(@pc.Input::new("(1+a)")),
     content=(
-      #|"(1 + a)"
+      #|(1 + a)
     ),
   )
   inspect(
     varP.run(@pc.Input::new("abc")),
     content=(
-      #|"abc"
+      #|abc
     ),
   )
   inspect(
     wholeP.run(@pc.Input::new("(1+(1+2))")),
     content=(
-      #|"(1 + (1 + 2))"
+      #|(1 + (1 + 2))
     ),
   )
 }

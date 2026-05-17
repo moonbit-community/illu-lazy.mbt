@@ -45,11 +45,11 @@ test "fix/even odd" {
   let even = nat.even.force()
   let odd = nat.odd.force()
   debug_inspect(
-    Int::until(0, 5).map(even),
+    Int::until(0, 5).map(even).collect(),
     content="[true, false, true, false, true]",
   )
   debug_inspect(
-    Int::until(0, 5).map(odd),
+    Int::until(0, 5).map(odd).collect(),
     content="[false, true, false, true, false]",
   )
 }
@@ -90,49 +90,49 @@ test "memo test" (t : @test.Test) {
   inspect(
     x,
     content=(
-      #|{source: 16, target: "10"}
+      #|{source: 16, target: 10}
     ),
   )
   inspect(
     x,
     content=(
-      #|{source: 16, target: "10"}
+      #|{source: 16, target: 10}
     ),
   )
   inspect(
     x,
     content=(
-      #|{source: 16, target: "10"}
+      #|{source: 16, target: 10}
     ),
   )
   inspect(
     x,
     content=(
-      #|{source: 16, target: "10"}
+      #|{source: 16, target: 10}
     ),
   )
   inspect(
     y,
     content=(
-      #|{source: 256, target: "100"}
+      #|{source: 256, target: 100}
     ),
   )
   inspect(
     y,
     content=(
-      #|{source: 256, target: "100"}
+      #|{source: 256, target: 100}
     ),
   )
   inspect(
     y,
     content=(
-      #|{source: 256, target: "100"}
+      #|{source: 256, target: 100}
     ),
   )
   inspect(
     y,
     content=(
-      #|{source: 256, target: "100"}
+      #|{source: 256, target: 100}
     ),
   )
   t.snapshot(filename="memo_test.txt")
