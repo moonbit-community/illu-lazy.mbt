@@ -1,4 +1,10 @@
 ///|
+priv struct Nat {
+  even : Lazy[(Int) -> Bool]
+  odd : Lazy[(Int) -> Bool]
+}
+
+///|
 test "fix/rec" {
   let x : LazyBuilder[(Int, Lazy[Int])] = LazyBuilder::new(fn(self) {
     (
@@ -16,10 +22,6 @@ test "fix/rec" {
 
 ///|
 test "fix/even odd" {
-  struct Nat {
-    even : Lazy[(Int) -> Bool]
-    odd : Lazy[(Int) -> Bool]
-  }
   let nat : LazyBuilder[Nat] = LazyBuilder::new(fn(self : Lazy[Nat]) {
     {
       even: Lazy::new(fn() {
@@ -42,11 +44,11 @@ test "fix/even odd" {
   let nat = nat.run_force()
   let even = nat.even.force()
   let odd = nat.odd.force()
-  inspect(
+  debug_inspect(
     Int::until(0, 5).map(even),
     content="[true, false, true, false, true]",
   )
-  inspect(
+  debug_inspect(
     Int::until(0, 5).map(odd),
     content="[false, true, false, true, false]",
   )

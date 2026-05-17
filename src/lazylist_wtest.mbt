@@ -5,7 +5,7 @@ priv enum List[A] {
 }
 
 ///|
-let counter : Ref[Int] = Ref::new(0)
+let counter : Ref[Int] = Ref(0)
 
 ///|
 fn[A] List::reverse_append(self : List[A], other : List[A]) -> List[A] {
@@ -138,5 +138,5 @@ test {
     fibs.take(20),
     content="[0,1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181,]",
   )
-  inspect(counter, content="{val: 19}")
+  debug_inspect(counter, content="{val: 19}")
 }
