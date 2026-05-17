@@ -1,10 +1,14 @@
 ///|
+priv struct ComponentRepr {
+  text : String
+  html : Lazy[String]
+}
+
+///|
+priv struct Component(LazyRec[ComponentRepr])
+
+///|
 test (t : @test.Test) {
-  struct ComponentRepr {
-    text : String
-    html : Lazy[String]
-  }
-  struct Component(LazyRec[ComponentRepr])
   fn new() -> Component {
     LazyRec::new(fn(self : Lazy[ComponentRepr]) {
       {
